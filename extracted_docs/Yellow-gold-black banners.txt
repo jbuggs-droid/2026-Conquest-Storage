@@ -1,0 +1,70 @@
+# Yellow-gold-black banners.docx
+
+Based on LoC-rev267-repair-from-rev265.html, here is the code and style specification for the Shipping announcement banner. This build is noted as the "PERFECT example" of the desired look and feel for all standard in-game banners.
+Shipping Banner Code & Styles
+The following styles define the "yellow/gold trim" look requested for standardization:
+Javascript
+/* Banner Container Logic */
+el.style.cssText = 'position:fixed; z-index:26000; display:flex; flex-direction:column; align-items:center; justify-content:center;';
+
+/* Banner Visual Style (The "Perfect Example") */
+el.innerHTML = `
+  <div style="
+    width: 100%; 
+    min-width: 100vw; 
+    padding: 16px 22px 18px; 
+    border-top: 2px solid rgba(255,230,140,.72); 
+    border-bottom: 2px solid rgba(255,230,140,.72); 
+    background: linear-gradient(180deg, rgba(17,22,35,.97), rgba(28,18,10,.95)); 
+    color: #fff7cf; 
+    box-shadow: 0 18px 44px rgba(0,0,0,.48), inset 0 0 0 1px rgba(255,255,255,.08); 
+    backdrop-filter: blur(3px); 
+    text-align: left;
+  ">
+    <div style="
+      font-size: 15px; 
+      line-height: 1.08; 
+      font-weight: 1000; 
+      letter-spacing: .12em; 
+      text-transform: uppercase; 
+      color: #ffe38a; 
+      text-shadow: 0 1px 0 rgba(0,0,0,.45);
+    ">Shipping Phase</div>
+    
+    <div style="
+      margin-top: 4px; 
+      font-size: 18px; 
+      font-weight: 700; 
+      color: #fff;
+    ">[AI Player Name] repositioned its stockpile.</div>
+    
+    <button id="bannerContinueBtn" style="
+      margin-top: 12px; 
+      padding: 8px 16px; 
+      border-radius: 12px; 
+      border: 1px solid rgba(255,230,140,.4); 
+      background: rgba(255,230,140,.1); 
+      color: #ffe38a; 
+      font-weight: 900; 
+      cursor: pointer;
+    ">Continue</button>
+  </div>
+`;
+Key Style Specifications for Standardization
+Positioning:
+Toplane: Centered to the map window, running the total horizontal width of the map window.
+Middlelane: Centered to the map window, running the total horizontal width of the map window.
+Border/Trim: 2px solid yellow/gold (rgba(255,230,140,.72)) on the top and bottom edges.
+Background: A dark, linear-gradient (rgba(17,22,35,.97) to rgba(28,18,10,.95)) with a blur backdrop-filter.
+Text Alignment:
+Shipping Banners: Must be left-justified.
+Trade Banners: Center-justified.
+Interactivity: Includes a clickable "Continue" button; game action must pause until the banner is dismissed.
+Behavior: Banners "slide" vertically to stay in their assigned lane (top or middle) regardless of browser scroll position.
+Sources:
+v9 problems
+v6 problems
+Loc-Ultimate-rev1 problems
+LoC block 7
+v8 problems
+v7 problems

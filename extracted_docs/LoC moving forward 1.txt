@@ -1,0 +1,34 @@
+# LoC moving forward 1.docx
+
+This session has focused on stabilizing the Conquest 2026 Authoritative Refactor by identifying the best source code to move forward with and standardizing the UI/UX experience.
+Summary of Discussions
+Roadmap Established: Conquest 2026 is the "Stone Tablet" and source of truth, confirming the Iron Quintet (Immediate Repaint, Champions Rules, Post-Combat Caps, BLITZ Authority, and Trade UI De-duplication) is functionally complete.
+Source File Selection: LoC-ultimate-rev1.html was selected as the master candidate. While it contains syntax errors in its trailing script patches (lines 10141–10520), it is the only build containing the full logic required by the roadmap.
+UI Standardization: We retrieved the "perfect" banner style from LoC-rev267-repair-from-rev265.html. This gold-trimmed, map-centered style will be applied to all standard banners (Shipping, Trade, Phase Changes), while the YEAH GLO style is reserved for BLITZ Mode.
+Opening Sequence Risks: The current probability of the opening sequence (Dedication and Intro Video) running correctly without changes is only 25% due to broken script wiring, encoding issues with LoC Open.mp4, and incorrect banner styling.
+The "Big List" (Iron Quintet & Technical Specs)
+As detailed in the Conquest 2026 baseline:
+[DONE] Immediate Conquest Repaint: Synchronous map updates upon victory.
+[DONE] Champions Capture-Special Rules: Centralized legality checks (e.g., Factories only on Gold).
+[DONE] Post-Combat Cap Enforcement: Authoritative limits: 1 Bomber, 3 Flak Guns, 1 Factory.
+[DONE] BLITZ Authority Cleanup: Unified trigger on roll of 7 or 11 after the second normal win.
+[DONE] Trade UI De-duplication: Streamlined interface; legacy AI boxes deactivated.
+[DONE] Centralized Combat Suspense: Timing rules: Minor <10 (3s), Med 10–17 (4s), Major >17 (5s).
+[DONE] Softer High Odds Model: ATT^2 / (ATT^2 + DEF^2) with 10%–90% clamp.
+Recommended Next Steps
+Clean "Patch Purgatory": Strip the broken and redundant script blocks at the end of rev1 (lines 10141–10520) to resolve SyntaxErrors and prevent "ghost code" collisions.
+Standardize Banners: Implement the gold-trimmed banner style for all standard game phases, ensuring they are centered to the map window width.
+Fix Dedication Flow: Apply the YEAH GLO style to the Dedication banner and remove the 8-second auto-advance timer so it persists until clicked.
+Repair Video Wiring: Correct the ID mismatch for the video element and ensure the startIntro() logic correctly handles the cinematic fade-in.
+Address Blitz Crash: Debug the turn-skipping issue that occurs after a BLITZ sequence to ensure the next player's turn correctly activates.
+Sources:
+!-- Dedication banner middlelane-st.txt
+Loc-Ultimate-rev1 problems
+LoC refactor in Cursor
+Conquest 2026
+Untitled document
+v4 problems
+LoC Open re-encode discussion
+LoC-rev267-repair-from-rev265
+--- Hotfix Dedication banner u2192.txt
+v7 problems

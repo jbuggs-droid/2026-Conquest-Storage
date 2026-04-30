@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>C64 Generated Map Preview</title>
+<style>
+body{margin:0;background:#060708;color:#fff;font-family:system-ui,Arial;padding:18px}
+.bar{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+select{font:inherit;padding:8px 10px;background:#12151d;color:#fff;border:1px solid #596070;border-radius:8px}
+svg{width:min(1200px,100%);height:auto;display:block;background:#000;border:1px solid #29313f}
+.land{fill:#7ff2ef;stroke:#030303;stroke-width:1.2}
+.water{fill:#020303;stroke:#020303;stroke-width:.35}
+.dot{fill:#7ff2ef;opacity:.75}
+#stats{color:#cbd4e4;font-weight:800}
+</style>
+</head>
+<body>
+<div class="bar"><select id="pick"><option value="N America 1">N America 1</option>
+<option value="Middle East">Middle East</option>
+<option value="China">China</option>
+<option value="Prussia">Prussia</option>
+<option value="Mediterranean">Mediterranean</option>
+<option value="Shenandoah">Shenandoah</option>
+<option value="N America 2">N America 2</option>
+<option value="European Wars">European Wars</option>
+<option value="Africa">Africa</option>
+<option value="3 Continents">3 Continents</option>
+<option value="S America">S America</option>
+<option value="Down Under">Down Under</option>
+<option value="Polar Ice">Polar Ice</option>
+<option value="World">World</option>
+<option value="Early Italia">Early Italia</option>
+<option value="Caribbean">Caribbean</option>
+<option value="Sea of Japan">Sea of Japan</option>
+<option value="Shenandoah 2">Shenandoah 2</option>
+<option value="Riverland">Riverland</option>
+<option value="Borderlands">Borderlands</option></select><span id="stats"></span></div>
+<div id="host"></div>
+<script src="c64-generated-maps.js"></script>
+<script>
+const pick = document.getElementById('pick');
+const host = document.getElementById('host');
+const stats = document.getElementById('stats');
+function render(){
+  const map = window.C64_GENERATED_MAPS[pick.value];
+  const waters = new Set(map.waterSet || []);
+  stats.textContent = `${map.landCount} land territories, ${map.waterCount} water regions`;
+  host.innerHTML = `<svg viewBox="0 0 ${map.w} ${map.h}" xmlns="http://www.w3.org/2000/svg"></svg>`;
+  const svg = host.firstElementChild;
+  map.territories.forEach((t,i)=>{
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', t.d);
+    p.setAttribute('class', waters.has(i) ? 'water' : 'land');
+    svg.appendChild(p);
+  });
+  for(let y=8;y<map.h;y+=13) for(let x=8;x<map.w;x+=13){
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',1.2); c.setAttribute('class','dot');
+    svg.insertBefore(c, svg.firstChild);
+  }
+}
+pick.addEventListener('change', render);
+render();
+</script>
+</body>
+</html>

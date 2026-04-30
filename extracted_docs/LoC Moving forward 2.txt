@@ -1,0 +1,29 @@
+# LoC Moving forward 2.docx
+
+Based on the authoritative diagnosis in LoC refactor in Cursor, the completion percentage of LoC-ultimate-rev1.html is summarized below.
+Current Completion Status: 95% "Sedimented"
+While the file contains nearly all required logic, it is technically non-functional in its current state due to "patch purgatory."
+Core Engine (Lines 1–10,140): 100% Complete. The base game engine ends cleanly and is stable.
+The Iron Quintet (Patch Clusters): 90% Coded / 0% Functional.
+The logic for all five items is present in the file.
+However, the final 4 patches at the bottom were pasted in a broken state.
+SyntaxErrors (missing wrappers, unmatched braces, and truncated expressions) cause the browser to abort these scripts, meaning the "fixes" never actually run.
+Champions' Mode: 100% Logic Present. Includes Bomber strikes, Factory boosts, and Horse Propagation.
+UI/Banners: 60% Complete. The "YEAH GLO" style is established, but banners are incorrectly centered to the browser window instead of the map window.
+The "Big List" (Iron Quintet & Technical Specs)
+As verified in the Conquest 2026 source of truth:
+[DONE] Immediate Conquest Repaint: Synchronous map/label updates.
+[DONE] Champions Capture-Special Rules: Centralized applyChampionRules logic.
+[DONE] Post-Combat Cap Enforcement: Limits: 1 Bomber, 3 Flak, 1 Factory.
+[DONE] BLITZ Authority Cleanup: Unified trigger on 7 or 11 after 2nd win.
+[DONE] Trade UI De-duplication: Legacy AI boxes deactivated.
+[DONE] Centralized Combat Suspense: 3s (Minor), 4s (Med), 5s (Major).
+[DONE] UI Scrubbing: "Combat Preview" renamed to "Force Count."
+[DONE] Softer High Odds Model: ATT^2 / (ATT^2 + DEF^2) with 10%–90% clamp.
+Diagnosis Summary
+The project is "simultaneously over-patched and under-patched." To reach 100% functionality, the broken trailing script blocks (lines 10141–10520) must be stripped or repaired to allow the "Iron Quintet" logic to execute.
+Sources:
+Loc-Ultimate-rev1 problems
+LoC refactor in Cursor
+Untitled document
+Conquest 2026

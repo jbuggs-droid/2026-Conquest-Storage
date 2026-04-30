@@ -1,0 +1,25 @@
+# LoC moving forward 3.docx
+
+Based on the LoC refactor in Cursor, the following "Nice to Have" items and future development stages are listed:
+Future "Nice to Have" & Expansion List
+Map & Content Expansion (Stage 19):
+Rivers: Evaluate adding rivers to random map generation and analyzing their impact on adjacency and naval logic.
+Territory Names: Implement a unique naming system for territories to replace generic "T1, T2" labels.
+Biomes: Add visual or functional biomes (e.g., Tundra, Desert) that could affect production or movement.
+Advanced AI & Quality of Life (Stage 20):
+AI Personalities: Develop distinct AI behaviors (e.g., "The Expansionist," "The Turtle," "The Trader").
+Undo/Redo System: Create a robust state-management system for "bringing forces" or "planned moves" before execution.
+Spectator Mode: Allow for a non-playing observer to watch AI-only matches.
+The Big List (Iron Quintet & Technical Specs)
+As defined in the Conquest 2026 roadmap:
+[DONE] Immediate Conquest Repaint: Synchronous map updates upon victory.
+[DONE] Champions Capture-Special Rules: Centralized applyChampionRules logic for asset legality.
+[DONE] Post-Combat Cap Enforcement: Limits: 1 Bomber, 3 Flak Guns, 1 Factory.
+[DONE] BLITZ Authority Cleanup: Unified trigger on 7 or 11 after the 2nd normal win.
+[DONE] Trade UI De-duplication: Legacy AI boxes deactivated; moved to direct trade interface.
+[DONE] Centralized Combat Suspense: Timing: Minor <10 (3s), Med 10–17 (4s), Major >17 (5s).
+[DONE] UI Scrubbing: Global rename of "Combat Preview" to "Force Count".
+[DONE] Softer High Odds Model: ATT^2 / (ATT^2 + DEF^2) with 10%–90% clamp.
+Sources:
+LoC refactor in Cursor
+Conquest 2026

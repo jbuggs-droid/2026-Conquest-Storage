@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LoC Standard Banner Lane Sample</title>
+<style>
+  body{margin:0;min-height:170vh;background:#101522;color:#fff7cf;font-family:Arial,Helvetica,sans-serif;}
+  .page{width:min(1100px,calc(100vw - 40px));margin:90px auto;}
+  .mapPanel{height:620px;border:2px solid rgba(255,230,140,.45);background:linear-gradient(135deg,#253b28,#182538 55%,#352818);box-shadow:0 18px 44px rgba(0,0,0,.45);position:relative;}
+  .mapPanel::before{content:"Map Area";position:absolute;inset:0;display:grid;place-items:center;font-size:44px;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,247,207,.28);}
+  .controls{position:sticky;top:12px;z-index:5;display:flex;gap:10px;margin-bottom:16px;}
+  button{border-radius:14px;border:2px solid rgba(255,230,140,.68);background:linear-gradient(180deg,rgba(87,62,15,.96),rgba(41,27,8,.96));color:#fff7cf;font-weight:900;font-size:16px;padding:10px 16px;cursor:pointer;}
+  #announceOverlay{position:fixed;inset:0;display:none;pointer-events:auto;z-index:9999;background:rgba(0,0,0,.25);}
+  #announceOverlay.v85-toplane{background:rgba(0,0,0,.22);}
+  #announceOverlay.v85-middlelane{background:rgba(0,0,0,.35);}
+  #announceOverlay .card{box-sizing:border-box;position:fixed;margin:0;padding:16px 22px 18px;border-radius:20px;border:2px solid rgba(255,230,140,.72);background:linear-gradient(180deg,rgba(17,22,35,.97),rgba(28,18,10,.95));color:#fff7cf;box-shadow:0 18px 44px rgba(0,0,0,.48),inset 0 0 0 1px rgba(255,255,255,.08);backdrop-filter:blur(3px);text-align:center;}
+  #announceTitle{font-size:15px;line-height:1.08;font-weight:1000;letter-spacing:.12em;text-transform:uppercase;opacity:.94;color:#ffe38a;text-shadow:0 1px 0 rgba(0,0,0,.45);}
+  #announceSub{margin-top:8px;font-size:33px;line-height:1.08;font-weight:1000;letter-spacing:.01em;color:#fff7cf;text-shadow:0 2px 0 rgba(0,0,0,.42);word-break:break-word;}
+  #announceContinue{margin-top:16px;min-width:180px;}
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="controls">
+      <button onclick="showBanner('top')">Toplane</button>
+      <button onclick="showBanner('middle')">Middlelane</button>
+      <button onclick="hideBanner()">Hide</button>
+    </div>
+    <div class="mapPanel"></div>
+  </div>
+
+  <div id="announceOverlay" class="v85-middlelane">
+    <div class="card">
+      <div id="announceTitle">Standard Banner</div>
+      <div id="announceSub">This banner is anchored to the map area and follows it while scrolling.</div>
+      <button id="announceContinue" onclick="hideBanner()">Continue</button>
+    </div>
+  </div>
+
+<script>
+  let currentLane = 'middle';
+  function placeBannerInLane(lane){
+    const overlay = document.getElementById('announceOverlay');
+    const card = overlay.querySelector('.card');
+    const rect = document.querySelector('.mapPanel').getBoundingClientRect();
+    const mapW = Math.max(280, Math.round(rect.width));
+    const mapH = Math.max(220, Math.round(rect.height));
+    const cardH = Math.min(Math.max(150, Math.round(mapH * 0.32)), 280);
+    const top = lane === 'top'
+      ? Math.round(rect.top)
+      : Math.round(rect.top + Math.max(12, (mapH - cardH) / 2));
+    overlay.classList.toggle('v85-toplane', lane === 'top');
+    overlay.classList.toggle('v85-middlelane', lane !== 'top');
+    card.style.left = `${Math.round(rect.left)}px`;
+    card.style.top = `${top}px`;
+    card.style.width = `${mapW}px`;
+    card.style.maxWidth = `${mapW}px`;
+  }
+  function showBanner(lane){
+    currentLane = lane;
+    document.getElementById('announceOverlay').style.display = 'block';
+    requestAnimationFrame(()=>placeBannerInLane(currentLane));
+  }
+  function hideBanner(){ document.getElementById('announceOverlay').style.display = 'none'; }
+  function refresh(){ if(document.getElementById('announceOverlay').style.display !== 'none') placeBannerInLane(currentLane); }
+  addEventListener('resize', refresh);
+  addEventListener('scroll', refresh, {passive:true});
+  setInterval(refresh, 200);
+</script>
+</body>
+</html>
